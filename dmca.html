@@ -9,17 +9,79 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #09090b; }
     code, pre { font-family: 'JetBrains Mono', monospace; }
+
+    /* Custom Cursor Styles */
+    .cursor-dot {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 6px;
+      background: #ffffff;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                  height 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                  opacity 0.2s ease;
+    }
+
+    .cursor-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid rgba(129, 140, 248, 0.4);
+      background: rgba(99, 102, 241, 0.04);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+                  height 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+                  border-color 0.3s ease, 
+                  background-color 0.3s ease,
+                  opacity 0.2s ease;
+    }
+
+    body.cursor-active .cursor-ring {
+      width: 54px;
+      height: 54px;
+      border-color: rgba(165, 180, 252, 0.85);
+      background: rgba(99, 102, 241, 0.12);
+      backdrop-filter: blur(2px);
+    }
+
+    body.cursor-active .cursor-dot {
+      width: 4px;
+      height: 4px;
+      background: #a5b4fc;
+    }
+
+    @media (hover: none) and (pointer: coarse) {
+      .cursor-dot, .cursor-ring {
+        display: none !important;
+      }
+    }
   </style>
 </head>
-<body class="bg-[#09090b] text-zinc-300 min-h-screen antialiased">
+<body class="bg-[#09090b] text-zinc-300 min-h-screen antialiased selection:bg-indigo-500 selection:text-white">
+
+  <!-- Custom Cursor Elements -->
+  <div id="cursor-dot" class="cursor-dot"></div>
+  <div id="cursor-ring" class="cursor-ring"></div>
+
   <nav class="border-b border-zinc-800/60 bg-zinc-950/80 backdrop-blur-md sticky top-0 z-50">
     <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="index.html" class="text-white font-bold text-sm flex items-center gap-2">
-        <span>⚡ Laya Gateway</span>
+      <a href="index.html" class="text-white font-bold text-sm flex items-center gap-2 group">
+        <span class="group-hover:rotate-6 transition duration-200">⚡</span>
+        <span>Laya Gateway</span>
       </a>
-      <a href="index.html" class="text-xs text-indigo-400 hover:text-indigo-300 font-medium">&larr; Back to Home</a>
+      <a href="index.html" class="text-xs text-indigo-400 hover:text-indigo-300 font-medium transition">&larr; Back to Home</a>
     </div>
   </nav>
 
@@ -84,5 +146,45 @@
   <footer class="border-t border-zinc-900 py-6 text-center text-xs text-zinc-600">
     &copy; 2026 Harshad Jadav. All rights reserved.
   </footer>
+
+  <script>
+    const cursorDot = document.getElementById('cursor-dot');
+    const cursorRing = document.getElementById('cursor-ring');
+    let cursorMouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    let ringPos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    let isCursorVisible = false;
+
+    window.addEventListener('mousemove', (e) => {
+      cursorMouse.x = e.clientX;
+      cursorMouse.y = e.clientY;
+      if (!isCursorVisible) {
+        isCursorVisible = true;
+        cursorDot.style.opacity = '1';
+        cursorRing.style.opacity = '1';
+      }
+      cursorDot.style.left = `${cursorMouse.x}px`;
+      cursorDot.style.top = `${cursorMouse.y}px`;
+    });
+
+    document.addEventListener('mouseleave', () => {
+      isCursorVisible = false;
+      cursorDot.style.opacity = '0';
+      cursorRing.style.opacity = '0';
+    });
+
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-active'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-active'));
+    });
+
+    function renderCursor() {
+      ringPos.x += (cursorMouse.x - ringPos.x) * 0.18;
+      ringPos.y += (cursorMouse.y - ringPos.y) * 0.18;
+      cursorRing.style.left = `${ringPos.x}px`;
+      cursorRing.style.top = `${ringPos.y}px`;
+      requestAnimationFrame(renderCursor);
+    }
+    requestAnimationFrame(renderCursor);
+  </script>
 </body>
 </html>
