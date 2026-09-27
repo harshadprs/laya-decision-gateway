@@ -7,35 +7,38 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>body { font-family: 'Inter', sans-serif; }</style>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    code, pre { font-family: 'JetBrains Mono', monospace; }
+  </style>
 </head>
-<body class="bg-slate-950 text-slate-300 min-h-screen antialiased">
-  <nav class="border-b border-slate-800 bg-slate-900/60 backdrop-blur-md">
-    <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-      <a href="index.html" class="text-white font-bold text-base flex items-center gap-2">
-        <span>⚡ Laya Decision Gateway</span>
+<body class="bg-[#09090b] text-zinc-300 min-h-screen antialiased">
+  <nav class="border-b border-zinc-800/60 bg-zinc-950/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="text-white font-bold text-sm flex items-center gap-2">
+        <span>⚡ Laya Gateway</span>
       </a>
-      <a href="index.html" class="text-xs text-indigo-400 hover:text-indigo-300">&larr; Back to Home</a>
+      <a href="index.html" class="text-xs text-indigo-400 hover:text-indigo-300 font-medium">&larr; Back to Home</a>
     </div>
   </nav>
 
-  <main class="max-w-4xl mx-auto px-4 py-16">
+  <main class="max-w-4xl mx-auto px-6 py-16">
     <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-2">Terms of Service</h1>
-    <p class="text-sm text-slate-400 mb-8">Effective Date: September 27, 2026 &bull; Published by Harshad Jadav</p>
+    <p class="text-xs text-zinc-500 mb-10">Effective Date: September 27, 2026 &bull; Published by Harshad Jadav</p>
 
-    <div class="prose prose-invert max-w-none space-y-6 text-sm leading-relaxed">
-      <section class="bg-slate-900/70 p-6 rounded-2xl border border-slate-800">
-        <h2 class="text-lg font-bold text-white mb-2">1. Acceptance of Terms</h2>
-        <p>
+    <div class="space-y-6 text-xs sm:text-sm leading-relaxed">
+      <section class="bg-zinc-900/40 p-6 rounded-2xl border border-zinc-800/80">
+        <h2 class="text-base font-bold text-white mb-2">1. Acceptance of Terms</h2>
+        <p class="text-zinc-400">
           By subscribing to, integrating, or accessing the <strong>Laya AI System 1 Decision Gateway</strong> via RapidAPI, Zyla Labs, or direct API keys, you agree to be bound by these Terms of Service. If you do not agree, do not use the API.
         </p>
       </section>
 
-      <section class="bg-slate-900/70 p-6 rounded-2xl border border-slate-800">
-        <h2 class="text-lg font-bold text-white mb-2">2. Acceptable Use Policy (AUP)</h2>
-        <p>You agree not to use the Gateway to:</p>
-        <ul class="list-disc pl-5 mt-2 space-y-1.5 text-slate-300">
+      <section class="bg-zinc-900/40 p-6 rounded-2xl border border-zinc-800/80">
+        <h2 class="text-base font-bold text-white mb-2">2. Acceptable Use Policy (AUP)</h2>
+        <p class="text-zinc-400">You agree not to use the Gateway to:</p>
+        <ul class="list-disc pl-5 mt-3 space-y-1.5 text-zinc-400">
           <li>Conduct or facilitate denial of service (DoS/DDoS) attacks or automated stress-testing against the API gateway infrastructure.</li>
           <li>Circumvent or attempt to tamper with rate limits, subscription quotas, or API key authentication headers.</li>
           <li>Process unlawful content, malicious malware command & control, or unauthorized exploits.</li>
@@ -43,37 +46,37 @@
         </ul>
       </section>
 
-      <section class="bg-slate-900/70 p-6 rounded-2xl border border-slate-800">
-        <h2 class="text-lg font-bold text-white mb-2">3. Service Levels, Latency & Availability</h2>
-        <p>
+      <section class="bg-zinc-900/40 p-6 rounded-2xl border border-zinc-800/80">
+        <h2 class="text-base font-bold text-white mb-2">3. Service Levels, Latency & Availability</h2>
+        <p class="text-zinc-400">
           The service is hosted on enterprise cloud infrastructure with continuous health monitoring. While typical response latency is under 35 milliseconds, the service is provided on an &ldquo;as is&rdquo; and &ldquo;as available&rdquo; basis. Maintenance windows, upstream network disruptions, or cloud infrastructure outages may occasionally impact availability.
         </p>
       </section>
 
-      <section class="bg-slate-900/70 p-6 rounded-2xl border border-slate-800">
-        <h2 class="text-lg font-bold text-white mb-2">4. Model Attribution & Licensing</h2>
-        <p>
+      <section class="bg-zinc-900/40 p-6 rounded-2xl border border-zinc-800/80">
+        <h2 class="text-base font-bold text-white mb-2">4. Model Attribution & Licensing</h2>
+        <p class="text-zinc-400">
           The underlying neural network model checkpoint is <strong><code>convaiinnovations/laya</code></strong>, open-sourced by <strong>Convai Innovations</strong>. The wrapper runtime, security gateways, and cloud deployment architecture are authored and published by <strong>Harshad Jadav</strong>.
         </p>
       </section>
 
-      <section class="bg-slate-900/70 p-6 rounded-2xl border border-slate-800">
-        <h2 class="text-lg font-bold text-white mb-2">5. Subscriptions, Billing & Cancellation</h2>
-        <p>
-          All subscription plans (Free, Basic, Pro, Ultra, Mega), payment processing, overage billing, and cancellations are handled securely through the <strong>RapidAPI Marketplace</strong>. You can cancel your subscription at any time directly through your RapidAPI developer dashboard.
+      <section class="bg-zinc-900/40 p-6 rounded-2xl border border-zinc-800/80">
+        <h2 class="text-base font-bold text-white mb-2">5. Subscriptions, Billing & Cancellation</h2>
+        <p class="text-zinc-400">
+          All subscription plans (Free tier during the limited promotional period, Pro, Ultra, Mega), payment processing, overage billing, and cancellations are handled securely through the <strong>RapidAPI Marketplace</strong>. You can manage or cancel your subscription at any time directly through your RapidAPI developer dashboard.
         </p>
       </section>
 
-      <section class="bg-slate-900/70 p-6 rounded-2xl border border-slate-800">
-        <h2 class="text-lg font-bold text-white mb-2">6. Limitation of Liability</h2>
-        <p>
+      <section class="bg-zinc-900/40 p-6 rounded-2xl border border-zinc-800/80">
+        <h2 class="text-base font-bold text-white mb-2">6. Limitation of Liability</h2>
+        <p class="text-zinc-400">
           To the maximum extent permitted by applicable law, Harshad Jadav and contributors shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of or inability to use the service.
         </p>
       </section>
     </div>
   </main>
 
-  <footer class="border-t border-slate-800 py-6 text-center text-xs text-slate-500">
+  <footer class="border-t border-zinc-900 py-6 text-center text-xs text-zinc-600">
     &copy; 2026 Harshad Jadav. All rights reserved.
   </footer>
 </body>
