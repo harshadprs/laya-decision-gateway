@@ -5,12 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Laya AI System 1 Decision Gateway — Created by Harshad Jadav</title>
   <meta name="description" content="Ultra-fast (<35ms), non-generative System 1 AI decision engine for support ticket triage, prompt injection defense, spam detection, and calibrated typed decisions. Created by Harshad Jadav.">
+  <link rel="icon" type="image/png" href="bfc-mark.png">
   
   <!-- Open Graph -->
   <meta property="og:title" content="Laya AI System 1 Decision Gateway — Created by Harshad Jadav">
   <meta property="og:description" content="Sub-35ms deterministic AI decision gateway for n8n, Make, and enterprise APIs. Free for a limited time on RapidAPI.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://harshadprs.github.io/laya-decision-gateway/">
+  <meta property="og:image" content="https://brainfunctioncollapse.com/laya/static/bfc-mark.png">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -23,20 +25,43 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   
   <style>
-    body { 
-      font-family: 'Plus Jakarta Sans', sans-serif; 
-      background-color: #09090b;
+    :root {
+      --ink: #0c0c0c;
+      --surface: #151514;
+      --line: #2b2b28;
+      --rule: #3d3d39;
+      --amber: #ffc609;
+      --text: #ededed;
+      --dim: #a6a6a6;
+      --faint: #808080;
     }
-    code, pre { font-family: 'JetBrains Mono', monospace; }
 
-    /* Custom Cursor Styles */
+    body { 
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+      background-color: var(--ink);
+      color: var(--text);
+    }
+    code, pre { 
+      font-family: 'JetBrains Mono', ui-monospace, monospace; 
+    }
+    code {
+      color: var(--amber);
+    }
+
+    /* Selection */
+    ::selection {
+      background: var(--amber);
+      color: var(--ink);
+    }
+
+    /* Custom Follower Cursor */
     .cursor-dot {
       position: fixed;
       top: 0;
       left: 0;
       width: 6px;
       height: 6px;
-      background: #ffffff;
+      background: var(--amber);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
@@ -52,8 +77,8 @@
       left: 0;
       width: 36px;
       height: 36px;
-      border: 1.5px solid rgba(129, 140, 248, 0.4);
-      background: rgba(99, 102, 241, 0.04);
+      border: 1.5px solid rgba(255, 198, 9, 0.45);
+      background: rgba(255, 198, 9, 0.04);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9998;
@@ -66,17 +91,17 @@
     }
 
     body.cursor-active .cursor-ring {
-      width: 54px;
-      height: 54px;
-      border-color: rgba(165, 180, 252, 0.85);
-      background: rgba(99, 102, 241, 0.12);
+      width: 56px;
+      height: 56px;
+      border-color: rgba(255, 198, 9, 0.9);
+      background: rgba(255, 198, 9, 0.12);
       backdrop-filter: blur(2px);
     }
 
     body.cursor-active .cursor-dot {
       width: 4px;
       height: 4px;
-      background: #a5b4fc;
+      background: #ffffff;
     }
 
     @media (hover: none) and (pointer: coarse) {
@@ -92,6 +117,12 @@
       transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s ease;
       position: relative;
       overflow: hidden;
+      background-color: var(--surface);
+      border: 1px solid var(--line);
+    }
+
+    .tilt-card:hover {
+      border-color: rgba(255, 198, 9, 0.45);
     }
 
     .tilt-layer-depth {
@@ -107,16 +138,16 @@
       border-radius: inherit;
       opacity: 0;
       transition: opacity 0.3s ease;
-      background: radial-gradient(circle 280px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.08), transparent 75%);
+      background: radial-gradient(circle 280px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 198, 9, 0.08), transparent 75%);
     }
 
     .tilt-card:hover .card-glare {
       opacity: 1;
     }
 
-    /* Subtle Hero Ambient Glow */
+    /* Subtle Amber Hero Ambient Glow */
     .hero-glow-layer {
-      background: radial-gradient(circle at 50% 10%, rgba(99, 102, 241, 0.18) 0%, rgba(9, 9, 11, 0) 65%);
+      background: radial-gradient(circle at 50% 10%, rgba(255, 198, 9, 0.12) 0%, rgba(12, 12, 12, 0) 65%);
       transition: transform 0.15s ease-out;
     }
 
@@ -127,7 +158,7 @@
     }
   </style>
 </head>
-<body class="bg-[#09090b] text-zinc-100 min-h-screen antialiased selection:bg-indigo-500 selection:text-white">
+<body class="bg-[#0c0c0c] text-[#ededed] min-h-screen antialiased">
 
   <!-- Custom Cursor Elements -->
   <div id="cursor-dot" class="cursor-dot"></div>
@@ -135,71 +166,67 @@
 
   <!-- Floating Glassmorphic Pill Header -->
   <header class="fixed top-4 inset-x-0 mx-auto w-[94%] max-w-5xl z-50 transition-all duration-300" id="main-header">
-    <nav class="bg-zinc-950/80 backdrop-blur-xl border border-zinc-800/80 shadow-[0_16px_40px_rgba(0,0,0,0.65)] rounded-2xl sm:rounded-full px-4 sm:px-6 py-2.5 flex items-center justify-between">
+    <nav class="bg-[#151514]/85 backdrop-blur-xl border border-[#2b2b28] shadow-[0_16px_40px_rgba(0,0,0,0.8)] rounded-2xl sm:rounded-full px-4 sm:px-6 py-2.5 flex items-center justify-between">
       
-      <!-- Brand & Creator -->
+      <!-- Brand & Creator with bfc-mark.png -->
       <a href="index.html" class="flex items-center gap-3 group">
-        <div class="h-8 w-8 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-violet-400 flex items-center justify-center font-bold text-sm text-white shadow-md shadow-indigo-500/30 group-hover:scale-105 group-hover:rotate-6 transition duration-300">
-          ⚡
+        <div class="h-8 w-8 rounded-lg overflow-hidden flex items-center justify-center p-0.5 border border-[#3d3d39] bg-[#0c0c0c] group-hover:border-[#ffc609] transition duration-300 group-hover:scale-105">
+          <img src="bfc-mark.png" alt="Laya BFC Mark" class="w-full h-full object-contain">
         </div>
         <div class="flex flex-col text-left">
           <div class="flex items-center gap-1.5 leading-none">
-            <span class="font-bold text-sm tracking-tight text-white group-hover:text-indigo-200 transition">Laya Gateway</span>
-            <span class="text-[9px] font-mono text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-1 py-0.5 rounded leading-none">PRO</span>
+            <span class="font-bold text-sm tracking-tight text-[#ededed] group-hover:text-[#ffc609] transition">Laya Gateway</span>
+            <span class="text-[9px] font-mono text-[#ffc609] bg-[#ffc609]/10 border border-[#ffc609]/30 px-1 py-0.5 rounded leading-none uppercase">PRO</span>
           </div>
-          <span class="text-[10px] text-zinc-500 font-mono tracking-tight mt-0.5">by Harshad Jadav</span>
+          <span class="text-[10px] text-[#a6a6a6] font-mono tracking-tight mt-0.5">by Harshad Jadav</span>
         </div>
       </a>
 
       <!-- Center: Live Telemetry Indicator & Nav Links -->
-      <div class="hidden md:flex items-center gap-1 text-xs font-medium text-zinc-400 bg-zinc-900/50 border border-zinc-800/60 rounded-full px-2 py-1">
+      <div class="hidden md:flex items-center gap-1 text-xs font-medium text-[#a6a6a6] bg-[#0c0c0c]/70 border border-[#2b2b28] rounded-full px-2 py-1">
         <!-- Live System 1 Telemetry Indicator -->
-        <div class="flex items-center gap-1.5 px-3 py-0.5 text-[11px] font-mono text-zinc-400 border-r border-zinc-800 pr-3">
+        <div class="flex items-center gap-1.5 px-3 py-0.5 text-[11px] font-mono text-[#a6a6a6] border-r border-[#2b2b28] pr-3">
           <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ffc609] opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-[#ffc609]"></span>
           </span>
-          <span class="text-emerald-400 font-semibold">&lt;35ms Live</span>
+          <span class="text-[#ffc609] font-semibold">&lt;35ms Live</span>
         </div>
 
-        <a href="#capabilities" class="hover:text-white hover:bg-zinc-800/80 px-3 py-1 rounded-full transition-all">Capabilities</a>
-        <a href="#quickstart" class="hover:text-white hover:bg-zinc-800/80 px-3 py-1 rounded-full transition-all">Integration</a>
-        <a href="#credits" class="hover:text-white hover:bg-zinc-800/80 px-3 py-1 rounded-full transition-all">Attribution</a>
+        <a href="#capabilities" class="hover:text-[#ededed] hover:bg-[#151514] px-3 py-1 rounded-full transition-all">Capabilities</a>
+        <a href="#quickstart" class="hover:text-[#ededed] hover:bg-[#151514] px-3 py-1 rounded-full transition-all">Integration</a>
+        <a href="#credits" class="hover:text-[#ededed] hover:bg-[#151514] px-3 py-1 rounded-full transition-all">Attribution</a>
       </div>
 
-      <!-- Right: Glowing Shimmer CTA Button -->
+      <!-- Right: Amber Accent CTA Button -->
       <div class="flex items-center gap-3">
-        <a href="https://rapidapi.com/harshadjadav849/api/laya-ai-api-gateway-lightning-decision-engine-api" target="_blank" class="relative group/cta overflow-hidden rounded-full p-[1px] font-medium text-xs">
-          <span class="absolute inset-0 bg-gradient-to-r from-indigo-500 via-violet-400 to-indigo-500 rounded-full group-hover/cta:opacity-100 opacity-75 blur-[2px] transition duration-300 animate-pulse"></span>
-          <span class="relative bg-zinc-950 px-4 py-1.5 rounded-full flex items-center gap-1.5 text-zinc-100 border border-zinc-700/60 group-hover/cta:bg-zinc-900 transition">
-            <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
-            <span>Get Free Key</span>
-            <span class="text-indigo-400 font-bold group-hover/cta:translate-x-0.5 transition-transform">&rarr;</span>
-          </span>
+        <a href="https://rapidapi.com/harshadjadav849/api/laya-ai-api-gateway-lightning-decision-engine-api" target="_blank" class="bg-[#ffc609] hover:bg-[#ffd333] text-[#0c0c0c] font-bold text-xs px-4 py-1.5 rounded-full flex items-center gap-1.5 transition-all shadow-md shadow-[#ffc609]/20 hover:scale-105 active:scale-95">
+          <span>Get Free Key</span>
+          <span class="font-black">&rarr;</span>
         </a>
       </div>
     </nav>
   </header>
 
-  <!-- Hero Section with 3D Canvas & Mouse Parallax -->
+  <!-- Hero Section with 3D Canvas & Amber Parallax -->
   <header class="relative pt-36 sm:pt-44 pb-20 overflow-hidden min-h-[600px] flex items-center justify-center">
     
-    <!-- 3D Three.js Interactive Wireframe Background -->
-    <div id="hero-3d-container" class="absolute inset-0 pointer-events-none z-0 overflow-hidden flex items-center justify-center opacity-45"></div>
+    <!-- 3D Three.js Interactive Wireframe Background (Amber Decision Lattice) -->
+    <div id="hero-3d-container" class="absolute inset-0 pointer-events-none z-0 overflow-hidden flex items-center justify-center opacity-40"></div>
 
     <!-- Mouse-reactive Glow Layer -->
     <div id="hero-glow" class="hero-glow-layer absolute inset-0 pointer-events-none z-0"></div>
 
-    <!-- Subtle Parallax Floating Ambient 3D Elements -->
+    <!-- Subtle Parallax Floating Ambient Elements -->
     <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden max-w-5xl mx-auto">
-      <div class="parallax-item absolute top-24 left-10 hidden md:block text-[11px] font-mono px-3 py-1.5 rounded-full bg-zinc-900/60 border border-zinc-800/80 text-zinc-400 backdrop-blur-sm shadow-xl" data-speed="0.04">
-        <span class="text-indigo-400 font-semibold">&lt; 35ms</span> Latency Pass
+      <div class="parallax-item absolute top-24 left-10 hidden md:block text-[11px] font-mono px-3 py-1.5 rounded-full bg-[#151514]/80 border border-[#2b2b28] text-[#a6a6a6] backdrop-blur-sm shadow-xl" data-speed="0.04">
+        <span class="text-[#ffc609] font-semibold">&lt; 35ms</span> Latency Pass
       </div>
-      <div class="parallax-item absolute top-40 right-12 hidden md:block text-[11px] font-mono px-3 py-1.5 rounded-full bg-zinc-900/60 border border-zinc-800/80 text-zinc-400 backdrop-blur-sm shadow-xl" data-speed="-0.05">
-        <span class="text-emerald-400 font-semibold">100%</span> Deterministic
+      <div class="parallax-item absolute top-40 right-12 hidden md:block text-[11px] font-mono px-3 py-1.5 rounded-full bg-[#151514]/80 border border-[#2b2b28] text-[#a6a6a6] backdrop-blur-sm shadow-xl" data-speed="-0.05">
+        <span class="text-[#ffc609] font-semibold">100%</span> Deterministic
       </div>
-      <div class="parallax-item absolute bottom-12 left-1/4 hidden md:block text-[11px] font-mono px-3 py-1.5 rounded-full bg-zinc-900/60 border border-zinc-800/80 text-zinc-400 backdrop-blur-sm shadow-xl" data-speed="0.06">
-        <span class="text-violet-400 font-semibold">mmBERT</span> 322M Encoder
+      <div class="parallax-item absolute bottom-12 left-1/4 hidden md:block text-[11px] font-mono px-3 py-1.5 rounded-full bg-[#151514]/80 border border-[#2b2b28] text-[#a6a6a6] backdrop-blur-sm shadow-xl" data-speed="0.06">
+        <span class="text-[#ffc609] font-semibold">mmBERT</span> 322M Encoder
       </div>
     </div>
 
@@ -208,61 +235,61 @@
       
       <!-- Interactive Promo Chip & Attribution Badges -->
       <div class="flex flex-wrap items-center justify-center gap-2.5 mb-8">
-        <a href="https://rapidapi.com/harshadjadav849/api/laya-ai-api-gateway-lightning-decision-engine-api" target="_blank" class="parallax-item inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/80 border border-indigo-500/30 text-xs text-zinc-300 backdrop-blur-md hover:border-indigo-500/60 hover:bg-zinc-800/80 transition duration-300 group shadow-lg shadow-indigo-500/10" data-speed="0.02">
+        <a href="https://rapidapi.com/harshadjadav849/api/laya-ai-api-gateway-lightning-decision-engine-api" target="_blank" class="parallax-item inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#151514] border border-[#ffc609]/30 text-xs text-[#ededed] backdrop-blur-md hover:border-[#ffc609] hover:bg-[#1f1f1d] transition duration-300 group shadow-lg shadow-[#ffc609]/10" data-speed="0.02">
           <span class="flex h-2 w-2 relative">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ffc609] opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-[#ffc609]"></span>
           </span>
-          <span class="text-zinc-300">Limited Promo: <strong class="text-white">1,000 Free Calls/mo</strong> on RapidAPI</span>
-          <span class="text-indigo-400 font-bold group-hover:translate-x-0.5 transition-transform duration-200">&rarr;</span>
+          <span>Limited Promo: <strong class="text-white">1,000 Free Calls/mo</strong> on RapidAPI</span>
+          <span class="text-[#ffc609] font-bold group-hover:translate-x-0.5 transition-transform duration-200">&rarr;</span>
         </a>
 
-        <div class="parallax-item inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/60 border border-zinc-800 text-xs text-zinc-400 backdrop-blur-sm shadow-md" data-speed="0.025">
-          <span class="text-zinc-300">Created by <strong>Harshad Jadav</strong></span>
-          <span class="text-zinc-600">&bull;</span>
-          <span class="text-indigo-400 font-medium">Convai Laya 322M</span>
+        <div class="parallax-item inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#151514]/60 border border-[#2b2b28] text-xs text-[#a6a6a6] backdrop-blur-sm" data-speed="0.025">
+          <span>Created by <strong class="text-[#ededed]">Harshad Jadav</strong></span>
+          <span class="text-[#3d3d39]">&bull;</span>
+          <span class="text-[#ffc609] font-medium">Convai Laya 322M</span>
         </div>
       </div>
 
-      <!-- Main Heading with Subtle Parallax -->
-      <h1 class="parallax-item text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.1]" data-speed="0.03">
+      <!-- Main Heading with Amber Highlight -->
+      <h1 class="parallax-item text-4xl sm:text-6xl font-extrabold tracking-tight text-[#ededed] leading-[1.1]" data-speed="0.03">
         System 1 AI Decisions.<br>
-        <span class="bg-gradient-to-r from-indigo-400 via-violet-300 to-indigo-200 bg-clip-text text-transparent">Zero Generative Latency.</span>
+        <span class="text-[#ffc609]">Zero Generative Latency.</span>
       </h1>
 
       <!-- Subtitle -->
-      <p class="parallax-item mt-6 text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed" data-speed="0.02">
+      <p class="parallax-item mt-6 text-base sm:text-lg text-[#a6a6a6] max-w-2xl mx-auto leading-relaxed" data-speed="0.02">
         Stop waiting 2,000ms for slow, hallucinating generative LLMs to make structured decisions. Laya evaluates categorical choices, urgency scoring, and prompt guardrails in a single mathematical pass in under 35 milliseconds.
       </p>
 
       <!-- Primary Action Buttons -->
       <div class="parallax-item mt-8 flex flex-col sm:flex-row items-center justify-center gap-3" data-speed="0.015">
-        <a href="https://rapidapi.com/harshadjadav849/api/laya-ai-api-gateway-lightning-decision-engine-api" target="_blank" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm px-6 py-3 rounded-xl transition duration-200 shadow-lg shadow-indigo-600/25 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98]">
+        <a href="https://rapidapi.com/harshadjadav849/api/laya-ai-api-gateway-lightning-decision-engine-api" target="_blank" class="w-full sm:w-auto bg-[#ffc609] hover:bg-[#ffd333] text-[#0c0c0c] font-bold text-sm px-6 py-3 rounded-xl transition duration-200 shadow-lg shadow-[#ffc609]/20 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98]">
           <span>Start for Free on RapidAPI</span>
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+          <svg class="w-4 h-4 font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
         </a>
-        <a href="#quickstart" class="w-full sm:w-auto bg-zinc-900/90 hover:bg-zinc-800 text-zinc-300 font-medium text-sm px-6 py-3 rounded-xl border border-zinc-800 transition duration-200 flex items-center justify-center backdrop-blur-sm hover:border-zinc-700">
+        <a href="#quickstart" class="w-full sm:w-auto bg-[#151514] hover:bg-[#1f1f1d] text-[#ededed] font-medium text-sm px-6 py-3 rounded-xl border border-[#2b2b28] hover:border-[#3d3d39] transition duration-200 flex items-center justify-center">
           View cURL Quickstart
         </a>
       </div>
 
       <!-- Clean Metric Strip -->
-      <div class="parallax-item mt-16 pt-10 border-t border-zinc-900/90 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto text-left" data-speed="0.01">
+      <div class="parallax-item mt-16 pt-10 border-t border-[#2b2b28] grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto text-left" data-speed="0.01">
         <div>
-          <div class="text-2xl font-bold text-white tracking-tight">&lt; 35ms</div>
-          <div class="text-xs text-zinc-500 mt-0.5">Average Latency</div>
+          <div class="text-2xl font-bold text-[#ededed] tracking-tight">&lt; 35ms</div>
+          <div class="text-xs text-[#a6a6a6] mt-0.5">Average Latency</div>
         </div>
         <div>
-          <div class="text-2xl font-bold text-white tracking-tight">0%</div>
-          <div class="text-xs text-zinc-500 mt-0.5">Hallucinations</div>
+          <div class="text-2xl font-bold text-[#ededed] tracking-tight">0%</div>
+          <div class="text-xs text-[#a6a6a6] mt-0.5">Hallucinations</div>
         </div>
         <div>
-          <div class="text-2xl font-bold text-white tracking-tight">100+</div>
-          <div class="text-xs text-zinc-500 mt-0.5">Languages (mmBERT)</div>
+          <div class="text-2xl font-bold text-[#ededed] tracking-tight">100+</div>
+          <div class="text-xs text-[#a6a6a6] mt-0.5">Languages (mmBERT)</div>
         </div>
         <div>
-          <div class="text-2xl font-bold text-white tracking-tight">Zero</div>
-          <div class="text-xs text-zinc-500 mt-0.5">Data Retention</div>
+          <div class="text-2xl font-bold text-[#ededed] tracking-tight">Zero</div>
+          <div class="text-xs text-[#a6a6a6] mt-0.5">Data Retention</div>
         </div>
       </div>
 
@@ -270,83 +297,83 @@
   </header>
 
   <!-- Core Capabilities Section (Interactive 3D Tilt Cards) -->
-  <section id="capabilities" class="py-20 border-t border-zinc-900 relative z-10">
+  <section id="capabilities" class="py-20 border-t border-[#2b2b28] relative z-10">
     <div class="max-w-5xl mx-auto px-6">
       
       <div class="mb-12">
-        <h2 class="text-xs font-mono uppercase tracking-widest text-indigo-400">Capabilities</h2>
-        <p class="text-2xl sm:text-3xl font-bold text-white mt-1">Engineered for Workflow Automation</p>
+        <h2 class="text-xs font-mono uppercase tracking-widest text-[#ffc609]">Capabilities</h2>
+        <p class="text-2xl sm:text-3xl font-bold text-[#ededed] mt-1">Engineered for Workflow Automation</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         
         <!-- Card 1 -->
-        <div class="tilt-card p-6 rounded-2xl bg-zinc-900/40 border border-zinc-800/80 hover:border-indigo-500/40">
+        <div class="tilt-card p-6 rounded-2xl">
           <div class="card-glare"></div>
           <div class="tilt-layer-depth">
-            <div class="text-xs font-mono text-indigo-400 mb-2">POST /v1/triage</div>
-            <h3 class="text-base font-semibold text-white">Support Ticket & Email Triage</h3>
-            <p class="text-xs text-zinc-400 mt-2 leading-relaxed">
-              Classifies customer inquiries into departments (<code class="text-zinc-300">billing</code>, <code class="text-zinc-300">technical</code>, <code class="text-zinc-300">account</code>), grades urgency level (0-2), and flags churn/cancellation risks.
+            <div class="text-xs font-mono text-[#ffc609] mb-2 font-semibold">POST /v1/triage</div>
+            <h3 class="text-base font-semibold text-[#ededed]">Support Ticket & Email Triage</h3>
+            <p class="text-xs text-[#a6a6a6] mt-2 leading-relaxed">
+              Classifies customer inquiries into departments (<code class="text-[#ffc609]">billing</code>, <code class="text-[#ffc609]">technical</code>, <code class="text-[#ffc609]">account</code>), grades urgency level (0-2), and flags churn/cancellation risks.
             </p>
           </div>
         </div>
 
         <!-- Card 2 -->
-        <div class="tilt-card p-6 rounded-2xl bg-zinc-900/40 border border-zinc-800/80 hover:border-indigo-500/40">
+        <div class="tilt-card p-6 rounded-2xl">
           <div class="card-glare"></div>
           <div class="tilt-layer-depth">
-            <div class="text-xs font-mono text-indigo-400 mb-2">POST /v1/guard</div>
-            <h3 class="text-base font-semibold text-white">AI Agent Prompt Injection Guard</h3>
-            <p class="text-xs text-zinc-400 mt-2 leading-relaxed">
+            <div class="text-xs font-mono text-[#ffc609] mb-2 font-semibold">POST /v1/guard</div>
+            <h3 class="text-base font-semibold text-[#ededed]">AI Agent Prompt Injection Guard</h3>
+            <p class="text-xs text-[#a6a6a6] mt-2 leading-relaxed">
               A sub-30ms security perimeter that detects jailbreaks, command overrides, and role-play attacks before queries reach expensive generative LLMs.
             </p>
           </div>
         </div>
 
         <!-- Card 3 -->
-        <div class="tilt-card p-6 rounded-2xl bg-zinc-900/40 border border-zinc-800/80 hover:border-indigo-500/40">
+        <div class="tilt-card p-6 rounded-2xl">
           <div class="card-glare"></div>
           <div class="tilt-layer-depth">
-            <div class="text-xs font-mono text-indigo-400 mb-2">POST /v1/filter/spam</div>
-            <h3 class="text-base font-semibold text-white">Spam & Phishing Filter</h3>
-            <p class="text-xs text-zinc-400 mt-2 leading-relaxed">
+            <div class="text-xs font-mono text-[#ffc609] mb-2 font-semibold">POST /v1/filter/spam</div>
+            <h3 class="text-base font-semibold text-[#ededed]">Spam & Phishing Filter</h3>
+            <p class="text-xs text-[#a6a6a6] mt-2 leading-relaxed">
               Real-time classification distinguishing legitimate inquiries from commercial marketing junk, phishing scams, and credential theft attempts.
             </p>
           </div>
         </div>
 
         <!-- Card 4 -->
-        <div class="tilt-card p-6 rounded-2xl bg-zinc-900/40 border border-zinc-800/80 hover:border-indigo-500/40">
+        <div class="tilt-card p-6 rounded-2xl">
           <div class="card-glare"></div>
           <div class="tilt-layer-depth">
-            <div class="text-xs font-mono text-indigo-400 mb-2">POST /v1/sentiment</div>
-            <h3 class="text-base font-semibold text-white">Sentiment & Frustration Analyzer</h3>
-            <p class="text-xs text-zinc-400 mt-2 leading-relaxed">
+            <div class="text-xs font-mono text-[#ffc609] mb-2 font-semibold">POST /v1/sentiment</div>
+            <h3 class="text-base font-semibold text-[#ededed]">Sentiment & Frustration Analyzer</h3>
+            <p class="text-xs text-[#a6a6a6] mt-2 leading-relaxed">
               Evaluates text sentiment along with customer frustration and anger intensity score to trigger priority routing for escalated inquiries.
             </p>
           </div>
         </div>
 
         <!-- Card 5 -->
-        <div class="tilt-card p-6 rounded-2xl bg-zinc-900/40 border border-zinc-800/80 hover:border-indigo-500/40">
+        <div class="tilt-card p-6 rounded-2xl">
           <div class="card-glare"></div>
           <div class="tilt-layer-depth">
-            <div class="text-xs font-mono text-indigo-400 mb-2">POST /v1/moderate</div>
-            <h3 class="text-base font-semibold text-white">Content Moderation Gate</h3>
-            <p class="text-xs text-zinc-400 mt-2 leading-relaxed">
+            <div class="text-xs font-mono text-[#ffc609] mb-2 font-semibold">POST /v1/moderate</div>
+            <h3 class="text-base font-semibold text-[#ededed]">Content Moderation Gate</h3>
+            <p class="text-xs text-[#a6a6a6] mt-2 leading-relaxed">
               Zero-shot multi-label safety detection flagging toxic insults, hate speech, and explicit content before storing user-generated content.
             </p>
           </div>
         </div>
 
         <!-- Card 6 -->
-        <div class="tilt-card p-6 rounded-2xl bg-zinc-900/40 border border-zinc-800/80 hover:border-indigo-500/40">
+        <div class="tilt-card p-6 rounded-2xl">
           <div class="card-glare"></div>
           <div class="tilt-layer-depth">
-            <div class="text-xs font-mono text-indigo-400 mb-2">POST /v1/decide</div>
-            <h3 class="text-base font-semibold text-white">Custom Typed Decision Engine</h3>
-            <p class="text-xs text-zinc-400 mt-2 leading-relaxed">
+            <div class="text-xs font-mono text-[#ffc609] mb-2 font-semibold">POST /v1/decide</div>
+            <h3 class="text-base font-semibold text-[#ededed]">Custom Typed Decision Engine</h3>
+            <p class="text-xs text-[#a6a6a6] mt-2 leading-relaxed">
               Universal endpoint allowing arbitrary choice, score, or boolean questions on any text or state payload in a single forward pass.
             </p>
           </div>
@@ -358,41 +385,41 @@
   </section>
 
   <!-- Clean Quickstart Preview with 3D Tilt Window -->
-  <section id="quickstart" class="py-20 border-t border-zinc-900 bg-zinc-950/40 relative z-10">
+  <section id="quickstart" class="py-20 border-t border-[#2b2b28] bg-[#0c0c0c] relative z-10">
     <div class="max-w-4xl mx-auto px-6">
       
       <div class="mb-8">
-        <h2 class="text-xs font-mono uppercase tracking-widest text-indigo-400">Quickstart</h2>
-        <p class="text-2xl font-bold text-white mt-1">Call via RapidAPI in Seconds</p>
+        <h2 class="text-xs font-mono uppercase tracking-widest text-[#ffc609]">Quickstart</h2>
+        <p class="text-2xl font-bold text-[#ededed] mt-1">Call via RapidAPI in Seconds</p>
       </div>
 
       <!-- 3D Tilt Code Window -->
-      <div class="tilt-card rounded-2xl bg-zinc-950 border border-zinc-800/90 shadow-2xl hover:border-indigo-500/40">
+      <div class="tilt-card rounded-2xl border border-[#2b2b28] shadow-2xl">
         <div class="card-glare"></div>
         <div class="tilt-layer-depth">
-          <div class="flex items-center justify-between px-4 py-3 bg-zinc-900/50 border-b border-zinc-800 text-xs">
+          <div class="flex items-center justify-between px-4 py-3 bg-[#151514] border-b border-[#2b2b28] text-xs">
             <div class="flex items-center gap-1.5">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/60"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/60"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/60"></span>
-              <span class="text-zinc-500 font-mono ml-2">curl-example.sh</span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#3d3d39]"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#3d3d39]"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#ffc609]"></span>
+              <span class="text-[#a6a6a6] font-mono ml-2">curl-example.sh</span>
             </div>
-            <span class="text-zinc-500 font-mono text-[11px]">POST /v1/triage</span>
+            <span class="text-[#ffc609] font-mono text-[11px] font-semibold">POST /v1/triage</span>
           </div>
-          <div class="p-5 font-mono text-xs text-zinc-300 overflow-x-auto leading-relaxed">
-<pre><span class="text-indigo-400">curl</span> --request POST \
+          <div class="p-5 font-mono text-xs text-[#ededed] overflow-x-auto leading-relaxed bg-[#0c0c0c]">
+<pre><span class="text-[#ffc609]">curl</span> --request POST \
   --url https://laya-ai-api-gateway-lightning-decision-engine-api.p.rapidapi.com/v1/triage \
-  --header <span class="text-emerald-400">'x-rapidapi-host: laya-ai-api-gateway-lightning-decision-engine-api.p.rapidapi.com'</span> \
-  --header <span class="text-emerald-400">'x-rapidapi-key: YOUR_RAPIDAPI_KEY'</span> \
-  --header <span class="text-emerald-400">'Content-Type: application/json'</span> \
-  --data <span class="text-amber-300">'{
+  --header <span class="text-[#ededed]">'x-rapidapi-host: laya-ai-api-gateway-lightning-decision-engine-api.p.rapidapi.com'</span> \
+  --header <span class="text-[#ededed]">'x-rapidapi-key: YOUR_RAPIDAPI_KEY'</span> \
+  --header <span class="text-[#ededed]">'Content-Type: application/json'</span> \
+  --data <span class="text-[#a6a6a6]">'{
     "subject": "Billing issue on invoice #1024",
     "body": "I was double charged this morning. Please refund immediately or cancel my plan."
   }'</span></pre>
           </div>
-          <div class="border-t border-zinc-900 p-4 bg-zinc-900/20 text-xs font-mono">
-            <div class="text-zinc-500 mb-2">// Sample Output (&lt; 35ms):</div>
-            <pre class="text-emerald-400 text-xs">{
+          <div class="border-t border-[#2b2b28] p-4 bg-[#151514] text-xs font-mono">
+            <div class="text-[#a6a6a6] mb-2">// Sample Output (&lt; 35ms):</div>
+            <pre class="text-[#ffc609] text-xs">{
   "department": "billing",
   "urgency_level": "critical",
   "is_churn_risk": true,
@@ -407,38 +434,39 @@
   </section>
 
   <!-- Creator & Model Credits Section with 3D Depth Cards -->
-  <section id="credits" class="py-20 border-t border-zinc-900 relative z-10">
+  <section id="credits" class="py-20 border-t border-[#2b2b28] relative z-10">
     <div class="max-w-4xl mx-auto px-6">
       
-      <div class="rounded-2xl p-8 bg-zinc-900/30 border border-zinc-800">
-        <h2 class="text-xs font-mono uppercase tracking-widest text-indigo-400">Attribution & Architecture</h2>
-        <h3 class="text-xl font-bold text-white mt-1">Creator & Foundational Model</h3>
+      <div class="rounded-2xl p-8 bg-[#151514] border border-[#2b2b28]">
+        <h2 class="text-xs font-mono uppercase tracking-widest text-[#ffc609]">Attribution & Architecture</h2>
+        <h3 class="text-xl font-bold text-[#ededed] mt-1">Creator & Foundational Model</h3>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 text-xs text-zinc-400 leading-relaxed">
-          <div class="tilt-card bg-zinc-950 p-5 rounded-xl border border-zinc-800/80 hover:border-indigo-500/40">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 text-xs text-[#a6a6a6] leading-relaxed">
+          <div class="tilt-card bg-[#0c0c0c] p-5 rounded-xl border border-[#2b2b28]">
             <div class="card-glare"></div>
             <div class="tilt-layer-depth">
-              <div class="font-bold text-zinc-200 text-sm mb-1">Harshad Jadav</div>
-              <div class="text-indigo-400 font-mono text-[11px] mb-3">Gateway Creator & Architect</div>
+              <div class="font-bold text-[#ededed] text-sm mb-1">Harshad Jadav</div>
+              <div class="text-[#ffc609] font-mono text-[11px] mb-3">Gateway Creator & Architect</div>
               <p>
                 Designed, built, and deployed the production REST API runtime, marketplace security middleware, and cloud hosting infrastructure on Red Hat OpenShift.
               </p>
               <div class="mt-4">
-                <a href="https://github.com/harshadprs" target="_blank" class="text-zinc-300 hover:text-white underline underline-offset-2">GitHub Profile &rarr;</a>
+                <a href="https://github.com/harshadprs" target="_blank" class="text-[#ededed] hover:text-[#ffc609] underline underline-offset-2 transition">GitHub Profile &rarr;</a>
               </div>
             </div>
           </div>
 
-          <div class="tilt-card bg-zinc-950 p-5 rounded-xl border border-zinc-800/80 hover:border-indigo-500/40">
+          <div class="tilt-card bg-[#0c0c0c] p-5 rounded-xl border border-[#2b2b28]">
             <div class="card-glare"></div>
             <div class="tilt-layer-depth">
-              <div class="font-bold text-zinc-200 text-sm mb-1">Convai Innovations</div>
-              <div class="text-indigo-400 font-mono text-[11px] mb-3">Model Creator & Research</div>
+              <div class="font-bold text-[#ededed] text-sm mb-1">Convai Innovations & BFC</div>
+              <div class="text-[#ffc609] font-mono text-[11px] mb-3">Model Creator & Research</div>
               <p>
-                Powered by the open-source <strong class="text-zinc-300"><code>convaiinnovations/laya</code></strong> foundation model — a 322M parameter multilingual bidirectional encoder (mmBERT) tuned for calibrated categorical decisions without generative overhead.
+                Powered by the open-source <strong class="text-[#ededed]"><code>convaiinnovations/laya</code></strong> foundation model — a 322M parameter multilingual bidirectional encoder (mmBERT) tuned for calibrated categorical decisions without generative overhead.
               </p>
-              <div class="mt-4">
-                <a href="https://huggingface.co/convaiinnovations/laya" target="_blank" class="text-zinc-300 hover:text-white underline underline-offset-2">Hugging Face Model &rarr;</a>
+              <div class="mt-4 flex items-center gap-4">
+                <a href="https://huggingface.co/convaiinnovations/laya" target="_blank" class="text-[#ededed] hover:text-[#ffc609] underline underline-offset-2 transition">Hugging Face Model &rarr;</a>
+                <a href="https://brainfunctioncollapse.com/laya" target="_blank" class="text-[#ededed] hover:text-[#ffc609] underline underline-offset-2 transition">BFC Laya &rarr;</a>
               </div>
             </div>
           </div>
@@ -450,20 +478,23 @@
   </section>
 
   <!-- Minimal Footer with Policies -->
-  <footer class="border-t border-zinc-900 py-10 bg-black text-xs text-zinc-500 relative z-10">
+  <footer class="border-t border-[#2b2b28] py-10 bg-[#0c0c0c] text-xs text-[#a6a6a6] relative z-10">
     <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <p>&copy; 2026 <strong>Harshad Jadav</strong>. All rights reserved.</p>
+      <div class="flex items-center gap-2">
+        <img src="bfc-mark.png" alt="BFC Mark" class="w-4 h-4 object-contain">
+        <p>&copy; 2026 <strong>Harshad Jadav</strong>. All rights reserved.</p>
+      </div>
       
       <div class="flex items-center gap-6">
-        <a href="privacy.html" class="hover:text-zinc-300 transition">Privacy Policy</a>
-        <a href="terms.html" class="hover:text-zinc-300 transition">Terms of Service</a>
-        <a href="dmca.html" class="hover:text-zinc-300 transition">DMCA Notice</a>
-        <a href="https://rapidapi.com/harshadjadav849/api/laya-ai-api-gateway-lightning-decision-engine-api" target="_blank" class="text-indigo-400 hover:underline">RapidAPI</a>
+        <a href="privacy.html" class="hover:text-[#ffc609] transition">Privacy Policy</a>
+        <a href="terms.html" class="hover:text-[#ffc609] transition">Terms of Service</a>
+        <a href="dmca.html" class="hover:text-[#ffc609] transition">DMCA Notice</a>
+        <a href="https://rapidapi.com/harshadjadav849/api/laya-ai-api-gateway-lightning-decision-engine-api" target="_blank" class="text-[#ffc609] hover:underline">RapidAPI</a>
       </div>
     </div>
   </footer>
 
-  <!-- Interactive Scripts: 3D Scene, Parallax, 3D Tilt, Custom Cursor -->
+  <!-- Interactive Scripts: 3D Amber Scene, Parallax, 3D Tilt, Custom Cursor -->
   <script>
     /* =========================================================
        1. Custom Smooth Follower Cursor
@@ -516,7 +547,7 @@
 
 
     /* =========================================================
-       2. Parallax System (Hero glow & floating depth elements)
+       2. Parallax System (Hero amber glow & floating elements)
        ========================================================= */
     const heroGlow = document.getElementById('hero-glow');
     const parallaxItems = document.querySelectorAll('.parallax-item');
@@ -563,7 +594,6 @@
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
         
-        // Tilt angles (max 10 degrees)
         const rotateX = ((y - centerY) / centerY) * -9;
         const rotateY = ((x - centerX) / centerX) * 9;
 
@@ -579,7 +609,7 @@
 
 
     /* =========================================================
-       4. Minimal Three.js 3D Decision Lattice in Hero Background
+       4. Minimal Three.js Amber Decision Lattice in Hero Background
        ========================================================= */
     (function init3DHero() {
       const container = document.getElementById('hero-3d-container');
@@ -594,28 +624,27 @@
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       container.appendChild(renderer.domElement);
 
-      // Decision Lattice: Group containing geometric structures
       const group = new THREE.Group();
       scene.add(group);
 
-      // Outer Icosahedron Wireframe
+      // Outer Icosahedron Wireframe in Amber
       const outerGeo = new THREE.IcosahedronGeometry(2.8, 1);
       const outerMat = new THREE.MeshBasicMaterial({
-        color: 0x4f46e5,
+        color: 0xffc609,
         wireframe: true,
         transparent: true,
-        opacity: 0.28
+        opacity: 0.32
       });
       const outerMesh = new THREE.Mesh(outerGeo, outerMat);
       group.add(outerMesh);
 
-      // Inner Core Octahedron
+      // Inner Core Octahedron in Pale Amber
       const innerGeo = new THREE.OctahedronGeometry(1.6, 0);
       const innerMat = new THREE.MeshBasicMaterial({
-        color: 0x818cf8,
+        color: 0xffe066,
         wireframe: true,
         transparent: true,
-        opacity: 0.45
+        opacity: 0.5
       });
       const innerMesh = new THREE.Mesh(innerGeo, innerMat);
       group.add(innerMesh);
@@ -626,17 +655,17 @@
       pointsGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
       const pointsMat = new THREE.PointsMaterial({
         size: 0.08,
-        color: 0xc7d2fe,
+        color: 0xffffff,
         transparent: true,
-        opacity: 0.75
+        opacity: 0.8
       });
       const pointsMesh = new THREE.Points(pointsGeo, pointsMat);
       group.add(pointsMesh);
 
       // Perspective Grid Receding into Distance
-      const grid = new THREE.GridHelper(24, 20, 0x4f46e5, 0x27272a);
+      const grid = new THREE.GridHelper(24, 20, 0xffc609, 0x2b2b28);
       grid.position.y = -3.2;
-      grid.material.opacity = 0.18;
+      grid.material.opacity = 0.22;
       grid.material.transparent = true;
       scene.add(grid);
 
@@ -654,13 +683,11 @@
       function animate() {
         requestAnimationFrame(animate);
 
-        // Constant gentle rotation
         outerMesh.rotation.y += 0.002;
         outerMesh.rotation.x += 0.001;
         innerMesh.rotation.y -= 0.003;
         innerMesh.rotation.z += 0.002;
 
-        // Smooth mouse responsiveness
         group.rotation.y += (targetRotY - group.rotation.y) * 0.05;
         group.rotation.x += (targetRotX - group.rotation.x) * 0.05;
 
@@ -668,7 +695,6 @@
       }
       animate();
 
-      // Window resize handling
       window.addEventListener('resize', () => {
         if (!container) return;
         camera.aspect = container.clientWidth / container.clientHeight;

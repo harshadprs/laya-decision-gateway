@@ -4,13 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Terms of Service | Laya AI System 1 Decision Gateway</title>
+  <link rel="icon" type="image/png" href="bfc-mark.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #09090b; }
-    code, pre { font-family: 'JetBrains Mono', monospace; }
+    :root {
+      --ink: #0c0c0c;
+      --surface: #151514;
+      --line: #2b2b28;
+      --rule: #3d3d39;
+      --amber: #ffc609;
+      --text: #ededed;
+      --dim: #a6a6a6;
+      --faint: #808080;
+    }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--ink); color: var(--text); }
+    code, pre { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+    code { color: var(--amber); }
+
+    ::selection { background: var(--amber); color: var(--ink); }
 
     /* Custom Cursor Styles */
     .cursor-dot {
@@ -19,7 +33,7 @@
       left: 0;
       width: 6px;
       height: 6px;
-      background: #ffffff;
+      background: var(--amber);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
@@ -35,8 +49,8 @@
       left: 0;
       width: 36px;
       height: 36px;
-      border: 1.5px solid rgba(129, 140, 248, 0.4);
-      background: rgba(99, 102, 241, 0.04);
+      border: 1.5px solid rgba(255, 198, 9, 0.45);
+      background: rgba(255, 198, 9, 0.04);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9998;
@@ -51,15 +65,15 @@
     body.cursor-active .cursor-ring {
       width: 54px;
       height: 54px;
-      border-color: rgba(165, 180, 252, 0.85);
-      background: rgba(99, 102, 241, 0.12);
+      border-color: rgba(255, 198, 9, 0.9);
+      background: rgba(255, 198, 9, 0.12);
       backdrop-filter: blur(2px);
     }
 
     body.cursor-active .cursor-dot {
       width: 4px;
       height: 4px;
-      background: #a5b4fc;
+      background: #ffffff;
     }
 
     @media (hover: none) and (pointer: coarse) {
@@ -69,7 +83,7 @@
     }
   </style>
 </head>
-<body class="bg-[#09090b] text-zinc-300 min-h-screen antialiased selection:bg-indigo-500 selection:text-white">
+<body class="bg-[#0c0c0c] text-[#ededed] min-h-screen antialiased">
 
   <!-- Custom Cursor Elements -->
   <div id="cursor-dot" class="cursor-dot"></div>
@@ -77,17 +91,17 @@
 
   <!-- Floating Glassmorphic Pill Header -->
   <header class="fixed top-4 inset-x-0 mx-auto w-[94%] max-w-4xl z-50">
-    <nav class="bg-zinc-950/80 backdrop-blur-xl border border-zinc-800/80 shadow-[0_16px_40px_rgba(0,0,0,0.65)] rounded-2xl sm:rounded-full px-5 py-2.5 flex items-center justify-between">
+    <nav class="bg-[#151514]/85 backdrop-blur-xl border border-[#2b2b28] shadow-[0_16px_40px_rgba(0,0,0,0.8)] rounded-2xl sm:rounded-full px-5 py-2.5 flex items-center justify-between">
       <a href="index.html" class="flex items-center gap-2.5 group">
-        <div class="h-7 w-7 rounded-lg bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center font-bold text-xs text-white shadow-sm shadow-indigo-600/30 group-hover:scale-105 group-hover:rotate-6 transition duration-200">
-          ⚡
+        <div class="h-7 w-7 rounded-lg overflow-hidden flex items-center justify-center p-0.5 border border-[#3d3d39] bg-[#0c0c0c] group-hover:border-[#ffc609] transition duration-200">
+          <img src="bfc-mark.png" alt="BFC Mark" class="w-full h-full object-contain">
         </div>
         <div class="flex flex-col text-left">
-          <span class="text-white font-bold text-xs leading-none">Laya Gateway</span>
-          <span class="text-[9px] text-zinc-500 font-mono mt-0.5">by Harshad Jadav</span>
+          <span class="text-[#ededed] font-bold text-xs leading-none">Laya Gateway</span>
+          <span class="text-[9px] text-[#a6a6a6] font-mono mt-0.5">by Harshad Jadav</span>
         </div>
       </a>
-      <a href="index.html" class="text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1 group transition">
+      <a href="index.html" class="text-xs text-[#ffc609] hover:text-[#ffd333] font-medium flex items-center gap-1 group transition">
         <span class="group-hover:-translate-x-0.5 transition-transform">&larr;</span>
         <span>Back to Home</span>
       </a>
@@ -95,21 +109,21 @@
   </header>
 
   <main class="max-w-4xl mx-auto px-6 pt-28 pb-16">
-    <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-2">Terms of Service</h1>
-    <p class="text-xs text-zinc-500 mb-10">Effective Date: September 27, 2026 &bull; Published by Harshad Jadav</p>
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-[#ededed] mb-2">Terms of Service</h1>
+    <p class="text-xs text-[#a6a6a6] mb-10">Effective Date: September 27, 2026 &bull; Published by Harshad Jadav</p>
 
     <div class="space-y-6 text-xs sm:text-sm leading-relaxed">
-      <section class="bg-zinc-900/40 p-6 rounded-2xl border border-zinc-800/80">
-        <h2 class="text-base font-bold text-white mb-2">1. Acceptance of Terms</h2>
-        <p class="text-zinc-400">
-          By subscribing to, integrating, or accessing the <strong>Laya AI System 1 Decision Gateway</strong> via RapidAPI, Zyla Labs, or direct API keys, you agree to be bound by these Terms of Service. If you do not agree, do not use the API.
+      <section class="bg-[#151514] p-6 rounded-2xl border border-[#2b2b28]">
+        <h2 class="text-base font-bold text-[#ededed] mb-2">1. Acceptance of Terms</h2>
+        <p class="text-[#a6a6a6]">
+          By subscribing to, integrating, or accessing the <strong class="text-[#ededed]">Laya AI System 1 Decision Gateway</strong> via RapidAPI, Zyla Labs, or direct API keys, you agree to be bound by these Terms of Service. If you do not agree, do not use the API.
         </p>
       </section>
 
-      <section class="bg-zinc-900/40 p-6 rounded-2xl border border-zinc-800/80">
-        <h2 class="text-base font-bold text-white mb-2">2. Acceptable Use Policy (AUP)</h2>
-        <p class="text-zinc-400">You agree not to use the Gateway to:</p>
-        <ul class="list-disc pl-5 mt-3 space-y-1.5 text-zinc-400">
+      <section class="bg-[#151514] p-6 rounded-2xl border border-[#2b2b28]">
+        <h2 class="text-base font-bold text-[#ededed] mb-2">2. Acceptable Use Policy (AUP)</h2>
+        <p class="text-[#a6a6a6]">You agree not to use the Gateway to:</p>
+        <ul class="list-disc pl-5 mt-3 space-y-1.5 text-[#a6a6a6]">
           <li>Conduct or facilitate denial of service (DoS/DDoS) attacks or automated stress-testing against the API gateway infrastructure.</li>
           <li>Circumvent or attempt to tamper with rate limits, subscription quotas, or API key authentication headers.</li>
           <li>Process unlawful content, malicious malware command & control, or unauthorized exploits.</li>
@@ -117,37 +131,37 @@
         </ul>
       </section>
 
-      <section class="bg-zinc-900/40 p-6 rounded-2xl border border-zinc-800/80">
-        <h2 class="text-base font-bold text-white mb-2">3. Service Levels, Latency & Availability</h2>
-        <p class="text-zinc-400">
+      <section class="bg-[#151514] p-6 rounded-2xl border border-[#2b2b28]">
+        <h2 class="text-base font-bold text-[#ededed] mb-2">3. Service Levels, Latency & Availability</h2>
+        <p class="text-[#a6a6a6]">
           The service is hosted on enterprise cloud infrastructure with continuous health monitoring. While typical response latency is under 35 milliseconds, the service is provided on an &ldquo;as is&rdquo; and &ldquo;as available&rdquo; basis. Maintenance windows, upstream network disruptions, or cloud infrastructure outages may occasionally impact availability.
         </p>
       </section>
 
-      <section class="bg-zinc-900/40 p-6 rounded-2xl border border-zinc-800/80">
-        <h2 class="text-base font-bold text-white mb-2">4. Model Attribution & Licensing</h2>
-        <p class="text-zinc-400">
-          The underlying neural network model checkpoint is <strong><code>convaiinnovations/laya</code></strong>, open-sourced by <strong>Convai Innovations</strong>. The wrapper runtime, security gateways, and cloud deployment architecture are authored and published by <strong>Harshad Jadav</strong>.
+      <section class="bg-[#151514] p-6 rounded-2xl border border-[#2b2b28]">
+        <h2 class="text-base font-bold text-[#ededed] mb-2">4. Model Attribution & Licensing</h2>
+        <p class="text-[#a6a6a6]">
+          The underlying neural network model checkpoint is <strong class="text-[#ededed]"><code>convaiinnovations/laya</code></strong>, open-sourced by <strong class="text-[#ededed]">Convai Innovations</strong>. The wrapper runtime, security gateways, and cloud deployment architecture are authored and published by <strong class="text-[#ededed]">Harshad Jadav</strong>.
         </p>
       </section>
 
-      <section class="bg-zinc-900/40 p-6 rounded-2xl border border-zinc-800/80">
-        <h2 class="text-base font-bold text-white mb-2">5. Subscriptions, Billing & Cancellation</h2>
-        <p class="text-zinc-400">
-          All subscription plans (Free tier during the limited promotional period, Pro, Ultra, Mega), payment processing, overage billing, and cancellations are handled securely through the <strong>RapidAPI Marketplace</strong>. You can manage or cancel your subscription at any time directly through your RapidAPI developer dashboard.
+      <section class="bg-[#151514] p-6 rounded-2xl border border-[#2b2b28]">
+        <h2 class="text-base font-bold text-[#ededed] mb-2">5. Subscriptions, Billing & Cancellation</h2>
+        <p class="text-[#a6a6a6]">
+          All subscription plans (Free tier during the limited promotional period, Pro, Ultra, Mega), payment processing, overage billing, and cancellations are handled securely through the <strong class="text-[#ededed]">RapidAPI Marketplace</strong>. You can manage or cancel your subscription at any time directly through your RapidAPI developer dashboard.
         </p>
       </section>
 
-      <section class="bg-zinc-900/40 p-6 rounded-2xl border border-zinc-800/80">
-        <h2 class="text-base font-bold text-white mb-2">6. Limitation of Liability</h2>
-        <p class="text-zinc-400">
+      <section class="bg-[#151514] p-6 rounded-2xl border border-[#2b2b28]">
+        <h2 class="text-base font-bold text-[#ededed] mb-2">6. Limitation of Liability</h2>
+        <p class="text-[#a6a6a6]">
           To the maximum extent permitted by applicable law, Harshad Jadav and contributors shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of or inability to use the service.
         </p>
       </section>
     </div>
   </main>
 
-  <footer class="border-t border-zinc-900 py-6 text-center text-xs text-zinc-600">
+  <footer class="border-t border-[#2b2b28] py-6 text-center text-xs text-[#a6a6a6]">
     &copy; 2026 Harshad Jadav. All rights reserved.
   </footer>
 

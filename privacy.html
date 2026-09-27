@@ -4,12 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Privacy Policy | Laya AI System 1 Decision Gateway</title>
+  <link rel="icon" type="image/png" href="bfc-mark.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #09090b; }
+    :root {
+      --ink: #0c0c0c;
+      --surface: #151514;
+      --line: #2b2b28;
+      --rule: #3d3d39;
+      --amber: #ffc609;
+      --text: #ededed;
+      --dim: #a6a6a6;
+      --faint: #808080;
+    }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--ink); color: var(--text); }
+    code { color: var(--amber); font-family: ui-monospace, monospace; }
+
+    ::selection { background: var(--amber); color: var(--ink); }
 
     /* Custom Cursor Styles */
     .cursor-dot {
@@ -18,7 +32,7 @@
       left: 0;
       width: 6px;
       height: 6px;
-      background: #ffffff;
+      background: var(--amber);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
@@ -34,8 +48,8 @@
       left: 0;
       width: 36px;
       height: 36px;
-      border: 1.5px solid rgba(129, 140, 248, 0.4);
-      background: rgba(99, 102, 241, 0.04);
+      border: 1.5px solid rgba(255, 198, 9, 0.45);
+      background: rgba(255, 198, 9, 0.04);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9998;
@@ -50,15 +64,15 @@
     body.cursor-active .cursor-ring {
       width: 54px;
       height: 54px;
-      border-color: rgba(165, 180, 252, 0.85);
-      background: rgba(99, 102, 241, 0.12);
+      border-color: rgba(255, 198, 9, 0.9);
+      background: rgba(255, 198, 9, 0.12);
       backdrop-filter: blur(2px);
     }
 
     body.cursor-active .cursor-dot {
       width: 4px;
       height: 4px;
-      background: #a5b4fc;
+      background: #ffffff;
     }
 
     @media (hover: none) and (pointer: coarse) {
@@ -68,7 +82,7 @@
     }
   </style>
 </head>
-<body class="bg-[#09090b] text-zinc-300 min-h-screen antialiased selection:bg-indigo-500 selection:text-white">
+<body class="bg-[#0c0c0c] text-[#ededed] min-h-screen antialiased">
 
   <!-- Custom Cursor Elements -->
   <div id="cursor-dot" class="cursor-dot"></div>
@@ -76,17 +90,17 @@
 
   <!-- Floating Glassmorphic Pill Header -->
   <header class="fixed top-4 inset-x-0 mx-auto w-[94%] max-w-4xl z-50">
-    <nav class="bg-zinc-950/80 backdrop-blur-xl border border-zinc-800/80 shadow-[0_16px_40px_rgba(0,0,0,0.65)] rounded-2xl sm:rounded-full px-5 py-2.5 flex items-center justify-between">
+    <nav class="bg-[#151514]/85 backdrop-blur-xl border border-[#2b2b28] shadow-[0_16px_40px_rgba(0,0,0,0.8)] rounded-2xl sm:rounded-full px-5 py-2.5 flex items-center justify-between">
       <a href="index.html" class="flex items-center gap-2.5 group">
-        <div class="h-7 w-7 rounded-lg bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center font-bold text-xs text-white shadow-sm shadow-indigo-600/30 group-hover:scale-105 group-hover:rotate-6 transition duration-200">
-          ⚡
+        <div class="h-7 w-7 rounded-lg overflow-hidden flex items-center justify-center p-0.5 border border-[#3d3d39] bg-[#0c0c0c] group-hover:border-[#ffc609] transition duration-200">
+          <img src="bfc-mark.png" alt="BFC Mark" class="w-full h-full object-contain">
         </div>
         <div class="flex flex-col text-left">
-          <span class="text-white font-bold text-xs leading-none">Laya Gateway</span>
-          <span class="text-[9px] text-zinc-500 font-mono mt-0.5">by Harshad Jadav</span>
+          <span class="text-[#ededed] font-bold text-xs leading-none">Laya Gateway</span>
+          <span class="text-[9px] text-[#a6a6a6] font-mono mt-0.5">by Harshad Jadav</span>
         </div>
       </a>
-      <a href="index.html" class="text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1 group transition">
+      <a href="index.html" class="text-xs text-[#ffc609] hover:text-[#ffd333] font-medium flex items-center gap-1 group transition">
         <span class="group-hover:-translate-x-0.5 transition-transform">&larr;</span>
         <span>Back to Home</span>
       </a>
@@ -94,64 +108,64 @@
   </header>
 
   <main class="max-w-4xl mx-auto px-6 pt-28 pb-16">
-    <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-2">Privacy Policy</h1>
-    <p class="text-xs text-zinc-500 mb-10">Last Updated: September 27, 2026 &bull; Published by Harshad Jadav</p>
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-[#ededed] mb-2">Privacy Policy</h1>
+    <p class="text-xs text-[#a6a6a6] mb-10">Last Updated: September 27, 2026 &bull; Published by Harshad Jadav</p>
 
     <div class="space-y-6 text-xs sm:text-sm leading-relaxed">
-      <section class="bg-zinc-900/40 p-6 rounded-2xl border border-zinc-800/80">
-        <h2 class="text-base font-bold text-white mb-2">1. Core Commitment: Zero Data Retention</h2>
-        <p class="text-zinc-400">
-          The <strong>Laya AI System 1 Decision Gateway</strong> is engineered with a strict <strong>Zero-Retention Policy</strong> for customer data.
+      <section class="bg-[#151514] p-6 rounded-2xl border border-[#2b2b28]">
+        <h2 class="text-base font-bold text-[#ededed] mb-2">1. Core Commitment: Zero Data Retention</h2>
+        <p class="text-[#a6a6a6]">
+          The <strong class="text-[#ededed]">Laya AI System 1 Decision Gateway</strong> is engineered with a strict <strong class="text-[#ffc609]">Zero-Retention Policy</strong> for customer data.
         </p>
-        <ul class="list-disc pl-5 mt-3 space-y-1.5 text-zinc-400">
-          <li><strong>No Logging of Request Payloads:</strong> Content submitted to inference endpoints (e.g., ticket text, prompts, emails) is evaluated strictly in ephemeral RAM.</li>
-          <li><strong>No Model Training:</strong> Your input data, outputs, and questions are <strong>never</strong> saved to disk, never shared, and never used to train or fine-tune any future models.</li>
-          <li><strong>Immediate Deallocation:</strong> Once inference finishes (under 35 milliseconds), memory buffers containing your text are immediately released.</li>
+        <ul class="list-disc pl-5 mt-3 space-y-1.5 text-[#a6a6a6]">
+          <li><strong class="text-[#ededed]">No Logging of Request Payloads:</strong> Content submitted to inference endpoints (e.g., ticket text, prompts, emails) is evaluated strictly in ephemeral RAM.</li>
+          <li><strong class="text-[#ededed]">No Model Training:</strong> Your input data, outputs, and questions are <strong class="text-[#ededed]">never</strong> saved to disk, never shared, and never used to train or fine-tune any future models.</li>
+          <li><strong class="text-[#ededed]">Immediate Deallocation:</strong> Once inference finishes (under 35 milliseconds), memory buffers containing your text are immediately released.</li>
         </ul>
       </section>
 
-      <section class="bg-zinc-900/40 p-6 rounded-2xl border border-zinc-800/80">
-        <h2 class="text-base font-bold text-white mb-2">2. Information Handled</h2>
-        <p class="text-zinc-400">
-          When you access the service via <strong>RapidAPI</strong>, authentication, billing, and request counting are securely managed by the RapidAPI platform.
+      <section class="bg-[#151514] p-6 rounded-2xl border border-[#2b2b28]">
+        <h2 class="text-base font-bold text-[#ededed] mb-2">2. Information Handled</h2>
+        <p class="text-[#a6a6a6]">
+          When you access the service via <strong class="text-[#ededed]">RapidAPI</strong>, authentication, billing, and request counting are securely managed by the RapidAPI platform.
         </p>
-        <ul class="list-disc pl-5 mt-3 space-y-1.5 text-zinc-400">
-          <li><strong>Billing Information:</strong> We do not store or collect your credit card numbers, billing addresses, or payment credentials. These are processed exclusively by RapidAPI.</li>
-          <li><strong>Telemetry & Diagnostics:</strong> We only log anonymized server metadata (e.g., HTTP status code, response latency in milliseconds, timestamp) for error tracking and availability monitoring.</li>
+        <ul class="list-disc pl-5 mt-3 space-y-1.5 text-[#a6a6a6]">
+          <li><strong class="text-[#ededed]">Billing Information:</strong> We do not store or collect your credit card numbers, billing addresses, or payment credentials. These are processed exclusively by RapidAPI.</li>
+          <li><strong class="text-[#ededed]">Telemetry & Diagnostics:</strong> We only log anonymized server metadata (e.g., HTTP status code, response latency in milliseconds, timestamp) for error tracking and availability monitoring.</li>
         </ul>
       </section>
 
-      <section class="bg-zinc-900/40 p-6 rounded-2xl border border-zinc-800/80">
-        <h2 class="text-base font-bold text-white mb-2">3. Security & In-Transit Encryption</h2>
-        <p class="text-zinc-400">
-          All API requests sent to the Laya Decision Gateway are encrypted in transit using industry-standard <strong>Transport Layer Security (TLS 1.2 / TLS 1.3)</strong>. Requests cannot be intercepted in transit over unencrypted channels.
+      <section class="bg-[#151514] p-6 rounded-2xl border border-[#2b2b28]">
+        <h2 class="text-base font-bold text-[#ededed] mb-2">3. Security & In-Transit Encryption</h2>
+        <p class="text-[#a6a6a6]">
+          All API requests sent to the Laya Decision Gateway are encrypted in transit using industry-standard <strong class="text-[#ededed]">Transport Layer Security (TLS 1.2 / TLS 1.3)</strong>. Requests cannot be intercepted in transit over unencrypted channels.
         </p>
       </section>
 
-      <section class="bg-zinc-900/40 p-6 rounded-2xl border border-zinc-800/80">
-        <h2 class="text-base font-bold text-white mb-2">4. GDPR and CCPA Compliance</h2>
-        <p class="text-zinc-400">
+      <section class="bg-[#151514] p-6 rounded-2xl border border-[#2b2b28]">
+        <h2 class="text-base font-bold text-[#ededed] mb-2">4. GDPR and CCPA Compliance</h2>
+        <p class="text-[#a6a6a6]">
           Under the General Data Protection Regulation (GDPR) and California Consumer Privacy Act (CCPA):
         </p>
-        <ul class="list-disc pl-5 mt-3 space-y-1.5 text-zinc-400">
+        <ul class="list-disc pl-5 mt-3 space-y-1.5 text-[#a6a6a6]">
           <li>Because we do not store personal data or identify individual API consumers on our backend servers, there is no persistent personal record kept.</li>
           <li>You retain complete ownership of any text, prompts, or inputs you submit.</li>
         </ul>
       </section>
 
-      <section class="bg-zinc-900/40 p-6 rounded-2xl border border-zinc-800/80">
-        <h2 class="text-base font-bold text-white mb-2">5. Contact & Inquiries</h2>
-        <p class="text-zinc-400">
+      <section class="bg-[#151514] p-6 rounded-2xl border border-[#2b2b28]">
+        <h2 class="text-base font-bold text-[#ededed] mb-2">5. Contact & Inquiries</h2>
+        <p class="text-[#a6a6a6]">
           For privacy inquiries or technical questions regarding this service, please contact the developer via the official repository or marketplace listing:
         </p>
-        <p class="mt-3 text-indigo-400 font-semibold text-xs font-mono">
+        <p class="mt-3 text-[#ffc609] font-semibold text-xs font-mono">
           Developer: Harshad Jadav &bull; <a href="https://rapidapi.com/harshadjadav849/api/laya-ai-api-gateway-lightning-decision-engine-api" target="_blank" class="underline">RapidAPI Listing</a>
         </p>
       </section>
     </div>
   </main>
 
-  <footer class="border-t border-zinc-900 py-6 text-center text-xs text-zinc-600">
+  <footer class="border-t border-[#2b2b28] py-6 text-center text-xs text-[#a6a6a6]">
     &copy; 2026 Harshad Jadav. All rights reserved.
   </footer>
 
