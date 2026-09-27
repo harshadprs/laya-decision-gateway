@@ -75,17 +75,26 @@
   <div id="cursor-dot" class="cursor-dot"></div>
   <div id="cursor-ring" class="cursor-ring"></div>
 
-  <nav class="border-b border-zinc-800/60 bg-zinc-950/80 backdrop-blur-md sticky top-0 z-50">
-    <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="index.html" class="text-white font-bold text-sm flex items-center gap-2 group">
-        <span class="group-hover:rotate-6 transition duration-200">⚡</span>
-        <span>Laya Gateway</span>
+  <!-- Floating Glassmorphic Pill Header -->
+  <header class="fixed top-4 inset-x-0 mx-auto w-[94%] max-w-4xl z-50">
+    <nav class="bg-zinc-950/80 backdrop-blur-xl border border-zinc-800/80 shadow-[0_16px_40px_rgba(0,0,0,0.65)] rounded-2xl sm:rounded-full px-5 py-2.5 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <div class="h-7 w-7 rounded-lg bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center font-bold text-xs text-white shadow-sm shadow-indigo-600/30 group-hover:scale-105 group-hover:rotate-6 transition duration-200">
+          ⚡
+        </div>
+        <div class="flex flex-col text-left">
+          <span class="text-white font-bold text-xs leading-none">Laya Gateway</span>
+          <span class="text-[9px] text-zinc-500 font-mono mt-0.5">by Harshad Jadav</span>
+        </div>
       </a>
-      <a href="index.html" class="text-xs text-indigo-400 hover:text-indigo-300 font-medium transition">&larr; Back to Home</a>
-    </div>
-  </nav>
+      <a href="index.html" class="text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1 group transition">
+        <span class="group-hover:-translate-x-0.5 transition-transform">&larr;</span>
+        <span>Back to Home</span>
+      </a>
+    </nav>
+  </header>
 
-  <main class="max-w-4xl mx-auto px-6 py-16">
+  <main class="max-w-4xl mx-auto px-6 pt-28 pb-16">
     <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-2">DMCA & Copyright Policy</h1>
     <p class="text-xs text-zinc-500 mb-10">Digital Millennium Copyright Act Notice &bull; Published by Harshad Jadav</p>
 
